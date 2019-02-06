@@ -7,6 +7,6 @@ import retrofit2.http.Query
 interface WeatherApiService {
 
     @GET("inf/meteo.php")
-    fun getWeatherData(@Query("tid") townId: Int): Call<List<DayWeather>>
+    fun getWeatherData(@Query("tid") townId: Int): Call<List<WeatherObject>>
 
 }

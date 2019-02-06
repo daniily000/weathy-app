@@ -1,6 +1,7 @@
 package com.daniily.weathy
 
 import com.daniily.weathy.data.WeatherApiService
+import com.daniily.weathy.data.dayWeatherListFrom
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import retrofit2.Retrofit
@@ -30,9 +31,10 @@ class ExampleUnitTest {
         val execution = call.execute()
 
         check(execution.isSuccessful)
+        val weatherObjectList = execution.body()
 
-        if (execution.isSuccessful) {
-            println(execution.body().toString())
+        if (execution.isSuccessful && weatherObjectList  != null) {
+            println(dayWeatherListFrom(weatherObjectList).toString())
         }
 
 

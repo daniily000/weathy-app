@@ -2,5 +2,16 @@
 <resources>
     <color name="colorPrimary">#0091EA</color>
     <color name="colorPrimaryDark">#01579B</color>
+    <color name="colorSecondary">#0097A7</color>
     <color name="colorAccent">#FFEB3B</color>
+
+    <color name="colorInsaneCold">#01579B</color>
+    <color name="colorVeryCold">#126A9C</color>
+    <color name="colorCold">#098686</color>
+    <color name="colorFine">#06922E</color>
+    <color name="colorWarm">#967402</color>
+    <color name="colorHot">#B95A06</color>
+    <color name="colorInsaneHot">#C52F03</color>
+
+
 </resources>
