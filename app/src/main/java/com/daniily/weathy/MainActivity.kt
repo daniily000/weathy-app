@@ -19,6 +19,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.net.UnknownHostException
+import java.text.SimpleDateFormat
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
@@ -100,8 +101,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         if (dayTimesFragment.isVisible) {
-            supportFragmentManager.beginTransaction().hide(dayTimesFragment).commit()
-            chosenDayWeather = null
+            closeDayWeather()
         } else {
             finish()
         }
@@ -144,9 +144,16 @@ class MainActivity : AppCompatActivity() {
     private fun openDayWeather(dayWeather: DayWeather) {
         dayTimesFragment.setDayWeatherData(dayWeather)
         supportFragmentManager.beginTransaction().show(dayTimesFragment).commit()
+        main_toolbar.title = SimpleDateFormat("d MMMM, EEEE", Locale.getDefault()).format(dayWeather.date)
     }
 
-    private val fetchCallback = object : Callback<List<WeatherObject>> {
+    private fun closeDayWeather() {
+        supportFragmentManager.beginTransaction().hide(dayTimesFragment).commit()
+        chosenDayWeather = null
+        main_toolbar.setTitle(R.string.app_name)
+    }
+
+            private val fetchCallback = object : Callback<List<WeatherObject>> {
 
         override fun onFailure(call: Call<List<WeatherObject>>, t: Throwable) {
             Log.w("Retrofit", "failure: $t", t)

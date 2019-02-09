@@ -15,7 +15,8 @@
         android:layout_margin="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Monday" />
+        tools:text="Monday"
+        tools:textStyle="bold" />
 
     <TextView
         android:id="@+id/item_day_weather_date"

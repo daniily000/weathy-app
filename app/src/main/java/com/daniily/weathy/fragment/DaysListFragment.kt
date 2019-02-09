@@ -2,7 +2,6 @@ package com.daniily.weathy.fragment
 
 import android.graphics.Typeface
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -78,13 +77,14 @@ class DaysListFragment : Fragment() {
                     onClickListener?.invoke(dayWeatherList[position])
                 }
 
-                if (Calendar.getInstance().time == day.date) {
-                    Log.i("DaysListFragment", "${Calendar.getInstance().time} and ${day.date}")
+                if (Calendar.getInstance().time.date == day.date.date) {
+                    item_day_weather_day_of_the_week.typeface = Typeface.DEFAULT_BOLD
                     item_day_weather_date.typeface = Typeface.DEFAULT_BOLD
                     item_day_weather_temperature.typeface = Typeface.DEFAULT_BOLD
-
-                    item_day_weather_date.setTextColor(context.resources.getColor(R.color.colorAccent))
-                    item_day_weather_temperature.setTextColor(context.resources.getColor(R.color.colorAccent))
+                } else {
+                    item_day_weather_day_of_the_week.typeface = Typeface.DEFAULT
+                    item_day_weather_date.typeface = Typeface.DEFAULT
+                    item_day_weather_temperature.typeface = Typeface.DEFAULT
                 }
 
                 setBackgroundColor(
