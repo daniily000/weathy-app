@@ -8,4 +8,15 @@
     <string name="saturday">Суббота</string>
     <string name="sunday">Воскресенье</string>
     <string name="no_data">Нет данных</string>
+    <string name="morning">Утро</string>
+    <string name="day">День</string>
+    <string name="evening">Вечер</string>
+    <string name="night">Ночь</string>
+    <string name="temperature">Температура</string>
+    <string name="pressure_format">%d мм рт. ст.</string>
+    <string name="humidity_format">%d%%</string>
+    <string name="feels_like">Ощущается как</string>
+    <string name="pressure">Давление</string>
+    <string name="humidity">Влажность</string>
+    <string name="wind">Ветер</string>
 </resources>

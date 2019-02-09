@@ -5,13 +5,28 @@
     <color name="colorSecondary">#0097A7</color>
     <color name="colorAccent">#FFEB3B</color>
 
-    <color name="colorInsaneCold">#01579B</color>
-    <color name="colorVeryCold">#126A9C</color>
-    <color name="colorCold">#098686</color>
-    <color name="colorFine">#06922E</color>
-    <color name="colorWarm">#967402</color>
-    <color name="colorHot">#B95A06</color>
-    <color name="colorInsaneHot">#C52F03</color>
+    <color name="colorInsaneCold">#8001579B</color>
+    <color name="colorVeryCold">#80126A9C</color>
+    <color name="colorCold">#80098686</color>
+    <color name="colorFine">#8006922E</color>
+    <color name="colorWarm">#80969402</color>
+    <color name="colorHot">#80B95A06</color>
+    <color name="colorInsaneHot">#80C52F03</color>
+
+    <color name="colorMorningBackground">#FFF8E1</color>
+    <color name="colorMorningAccent">#FF6F00</color>
+
+    <color name="colorDayBackground">#E1F5FE</color>
+    <color name="colorDayAccent">#0277BD</color>
+
+    <color name="colorEveningBackground">#FBE9E7</color>
+    <color name="colorEveningAccent">#BF360C</color>
+
+    <color name="colorNightBackground">#C5CAE9</color>
+    <color name="colorNightAccent">#1A237E</color>
+
+
+
 
 
 </resources>

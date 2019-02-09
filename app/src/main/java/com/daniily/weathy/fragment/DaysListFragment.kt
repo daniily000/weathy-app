@@ -1,6 +1,8 @@
 package com.daniily.weathy.fragment
 
+import android.graphics.Typeface
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +15,7 @@ import kotlinx.android.synthetic.main.fragment_days_list.*
 import kotlinx.android.synthetic.main.fragment_days_list.view.*
 import kotlinx.android.synthetic.main.item_day_weather.view.*
 import java.text.DateFormat
+import java.util.*
 
 
 class DaysListFragment : Fragment() {
@@ -46,7 +49,10 @@ class DaysListFragment : Fragment() {
     }
 
 
-    class DaysListAdapter(private val dayWeatherList: List<DayWeather>, private val onClickListener: ((DayWeather) -> Unit)?) : RecyclerView.Adapter<DaysListAdapter.DaysListViewHolder>() {
+    class DaysListAdapter(
+        private val dayWeatherList: List<DayWeather>,
+        private val onClickListener: ((DayWeather) -> Unit)?)
+        : RecyclerView.Adapter<DaysListAdapter.DaysListViewHolder>() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = DaysListViewHolder(
             LayoutInflater.from(parent.context).inflate(R.layout.item_day_weather, parent, false)
@@ -74,6 +80,16 @@ class DaysListFragment : Fragment() {
                 setOnClickListener {
                     onClickListener?.invoke(dayWeatherList[position])
                 }
+
+                if (Calendar.getInstance().time == day.date) {
+                    Log.i("DaysListFragment", "${Calendar.getInstance().time} and ${day.date}")
+                    item_day_weather_date.typeface = Typeface.DEFAULT_BOLD
+                    item_day_weather_temperature.typeface = Typeface.DEFAULT_BOLD
+
+                    item_day_weather_date.setTextColor(context.resources.getColor(R.color.colorAccent))
+                    item_day_weather_temperature.setTextColor(context.resources.getColor(R.color.colorAccent))
+                }
+
                 setBackgroundColor(context.resources.getColor(when(day.tempLevel) {
 
                     INSANE_COLD -> R.color.colorInsaneCold
