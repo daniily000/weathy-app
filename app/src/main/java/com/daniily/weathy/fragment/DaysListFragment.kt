@@ -21,11 +21,7 @@ import java.util.*
 class DaysListFragment : Fragment() {
 
     var onDayClickListener: ((DayWeather) -> Unit)? = null
-//    var onRefreshListener: (() -> Unit)? = null
-//        set(value) {
-//            view?.days_list_swipe?.setOnRefreshListener(value)
-//            Log.i("DaysListFragment", "onRefresh")
-//        }
+    var onRefreshListener: (() -> Unit) = { Unit }
 
     private val mDayWeatherList = ArrayList<DayWeather>()
 
@@ -36,9 +32,10 @@ class DaysListFragment : Fragment() {
         val v = inflater.inflate(R.layout.fragment_days_list, container, false)
         v.days_list.adapter = DaysListAdapter(mDayWeatherList, onDayClickListener)
         v.days_list.layoutManager = LinearLayoutManager(v.context)
-        v.days_list_swipe.setOnRefreshListener{
+        v.days_list_swipe.setOnRefreshListener {
             days_list_swipe.isRefreshing = false
         }
+        v.days_list_swipe.setOnRefreshListener(onRefreshListener)
         return v
     }
 
@@ -51,8 +48,8 @@ class DaysListFragment : Fragment() {
 
     class DaysListAdapter(
         private val dayWeatherList: List<DayWeather>,
-        private val onClickListener: ((DayWeather) -> Unit)?)
-        : RecyclerView.Adapter<DaysListAdapter.DaysListViewHolder>() {
+        private val onClickListener: ((DayWeather) -> Unit)?
+    ) : RecyclerView.Adapter<DaysListAdapter.DaysListViewHolder>() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = DaysListViewHolder(
             LayoutInflater.from(parent.context).inflate(R.layout.item_day_weather, parent, false)
@@ -90,17 +87,21 @@ class DaysListFragment : Fragment() {
                     item_day_weather_temperature.setTextColor(context.resources.getColor(R.color.colorAccent))
                 }
 
-                setBackgroundColor(context.resources.getColor(when(day.tempLevel) {
+                setBackgroundColor(
+                    context.resources.getColor(
+                        when (day.tempLevel) {
 
-                    INSANE_COLD -> R.color.colorInsaneCold
-                    VERY_COLD -> R.color.colorVeryCold
-                    COLD -> R.color.colorCold
-                    FINE -> R.color.colorFine
-                    WARM -> R.color.colorWarm
-                    HOT -> R.color.colorHot
-                    INSANE_HOT -> R.color.colorInsaneHot
-                    else -> R.color.colorPrimary
-                }))
+                            INSANE_COLD -> R.color.colorInsaneCold
+                            VERY_COLD -> R.color.colorVeryCold
+                            COLD -> R.color.colorCold
+                            FINE -> R.color.colorFine
+                            WARM -> R.color.colorWarm
+                            HOT -> R.color.colorHot
+                            INSANE_HOT -> R.color.colorInsaneHot
+                            else -> R.color.colorPrimary
+                        }
+                    )
+                )
             }
         }
 

@@ -19,4 +19,6 @@
     <string name="pressure">Давление</string>
     <string name="humidity">Влажность</string>
     <string name="wind">Ветер</string>
+    <string name="server_unreachable">Сервер недоступен. Проверьте интернет-соединение.</string>
+    <string name="refresh_tip">Потяните вниз, чтобы обновить</string>
 </resources>

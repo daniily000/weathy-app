@@ -1,5 +1,7 @@
 package com.daniily.weathy.data
 
+import android.os.Parcel
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import java.util.*
 import kotlin.collections.ArrayList
@@ -18,19 +20,19 @@ const val HOT = 5
 const val INSANE_HOT = 6
 
 val INSANE_COLD_RANGE = Int.MIN_VALUE..-2
-val VERY_COLD_RANGE = 1..1
-val COLD_RANGE = 2..2
-val FINE_RANGE = 3..3
-val WARM_RANGE = 4..4
-val HOT_RANGE = 5..5
-val INSANE_HOT_RANGE = 6..Int.MAX_VALUE
+val VERY_COLD_RANGE = -1..1
+val COLD_RANGE = 2..3
+val FINE_RANGE = 4..5
+val WARM_RANGE = 6..6
+val HOT_RANGE = 7..8
+val INSANE_HOT_RANGE = 9..Int.MAX_VALUE
 
 class DayWeather(
     val morning: WeatherObject,
     val day: WeatherObject,
     val evening: WeatherObject,
     val night: WeatherObject
-) {
+) : Parcelable {
 
     private val tempMorning = morning.temperature
         .replace("+", "")
@@ -70,12 +72,40 @@ class DayWeather(
         else -> FINE
     }
 
-    override fun toString(): String {
-        return "DayWeather(morning=$morning, day=$day, evening=$evening, night=$night, date=$date, dayOfTheWeek=$dayOfTheWeek)"
+    constructor(parcel: Parcel) : this(
+        parcel.readParcelable(WeatherObject::class.java.classLoader),
+        parcel.readParcelable(WeatherObject::class.java.classLoader),
+        parcel.readParcelable(WeatherObject::class.java.classLoader),
+        parcel.readParcelable(WeatherObject::class.java.classLoader)
+    ) {
+        tempLevel = parcel.readInt()
     }
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeParcelable(morning, flags)
+        parcel.writeParcelable(day, flags)
+        parcel.writeParcelable(evening, flags)
+        parcel.writeParcelable(night, flags)
+        parcel.writeInt(tempLevel)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<DayWeather> {
+        override fun createFromParcel(parcel: Parcel): DayWeather {
+            return DayWeather(parcel)
+        }
+
+        override fun newArray(size: Int): Array<DayWeather?> {
+            return arrayOfNulls(size)
+        }
+    }
+
 }
 
-class WeatherObject {
+class WeatherObject() : Parcelable {
 
     @SerializedName("date")
     lateinit var date: Date
@@ -104,6 +134,17 @@ class WeatherObject {
     @SerializedName("tid")
     var townId: Int = 0
 
+    constructor(parcel: Parcel) : this() {
+        timeOfDay = parcel.readInt()
+        pressure = parcel.readInt()
+        temperature = parcel.readString() ?: ""
+        temperatureFeelsLike = parcel.readString() ?: ""
+        humidity = parcel.readInt()
+        wind = parcel.readString() ?: ""
+        cloud = parcel.readString() ?: ""
+        townId = parcel.readInt()
+    }
+
     override fun toString(): String {
         return "DayWeather(date=$date, " +
                 "timeOfDay='$timeOfDay', " +
@@ -114,6 +155,31 @@ class WeatherObject {
                 "wind='$wind', " +
                 "cloud='$cloud', " +
                 "townId=$townId)"
+    }
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeInt(timeOfDay)
+        parcel.writeInt(pressure)
+        parcel.writeString(temperature)
+        parcel.writeString(temperatureFeelsLike)
+        parcel.writeInt(humidity)
+        parcel.writeString(wind)
+        parcel.writeString(cloud)
+        parcel.writeInt(townId)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<WeatherObject> {
+        override fun createFromParcel(parcel: Parcel): WeatherObject {
+            return WeatherObject(parcel)
+        }
+
+        override fun newArray(size: Int): Array<WeatherObject?> {
+            return arrayOfNulls(size)
+        }
     }
 }
 
